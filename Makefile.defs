@@ -186,6 +186,13 @@ ifneq ($(LOCKDEBUG),)
     GO_TAGS_FLAGS += lockdebug
 endif
 
+$(info BORING is '$(BORING)')
+ifeq ($(BORING),1)
+    $(info BORING f2 is '$(BORING)')
+    GO_BUILD = GOEXPERIMENT=boringcrypto  $(GO_BUILD_WITH_CGO)
+    GO_BUILD_LDFLAGS += -linkmode external -extldflags "-static --enable-static-nss"
+endif
+
 GO_BUILD_FLAGS += -ldflags '$(GO_BUILD_LDFLAGS) $(EXTRA_GO_BUILD_LDFLAGS)' -tags=$(call join-with-comma,$(GO_TAGS_FLAGS)) $(EXTRA_GO_BUILD_FLAGS)
 GO_TEST_FLAGS += -tags=$(call join-with-comma,$(GO_TAGS_FLAGS))
 
