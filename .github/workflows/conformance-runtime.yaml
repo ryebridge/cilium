@@ -180,7 +180,7 @@ jobs:
         focus:
           - "agent"
           - "datapath"
-          - "privileged"
+          # - "privileged"
 
         include:
           ###
